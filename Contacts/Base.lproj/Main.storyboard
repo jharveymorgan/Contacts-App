@@ -31,7 +31,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="kTh-NW-31O" kind="show" identifier="openDetailView" id="dbn-9c-WVo"/>
+                                    <segue destination="kTh-NW-31O" kind="show" identifier="contactsDetailSegue" id="dbn-9c-WVo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="974" y="390"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="A8m-lp-9ji">
             <objects>
-                <viewController id="kTh-NW-31O" customClass="ViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kTh-NW-31O" customClass="DetailViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mir-Xx-zJW"/>
                         <viewControllerLayoutGuide type="bottom" id="1Fa-dI-R69"/>
@@ -92,8 +92,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="contactName" destination="10a-A5-qnM" id="0Th-oc-G4E"/>
-                        <outlet property="contactPhoneNumber" destination="ogt-ro-Tes" id="lKs-6A-70g"/>
+                        <outlet property="nameLabel" destination="10a-A5-qnM" id="qh5-zO-sCw"/>
+                        <outlet property="phoneNumberLabel" destination="ogt-ro-Tes" id="vyX-gR-OY9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdl-Eq-0uq" userLabel="First Responder" sceneMemberID="firstResponder"/>

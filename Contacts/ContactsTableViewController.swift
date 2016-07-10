@@ -9,15 +9,10 @@
 import UIKit
 
 class ContactsTableViewController: UITableViewController {
+    
+    // array of for info from Contact class 
+    var contacts:[Contact] = []
 
-    
-    // dictionary to hold contact information
-    //var contactInfo: [String: String] = [:]
-    //var contact = ["Jordan Morgan": "313 588-7811"]
-    
-    //let jordan = contactInfo(name: "Jordan", phoneNumber: "313-588-7811")
-    //contactInfo["Jordan"] = "313-588-7811"
-    //contact["Fran Morgan"] = "313-585-1203"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +22,20 @@ class ContactsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // edit button in nav bar
+        let moveButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("toggleEdit"))
+        navigationItem.rightBarButtonItem = moveButton
+        
+        // tester contact information
+        let jenny = Contact(phoneNumber: "867-5309")
+        let rich = Contact(name: "Rich", phoneNumber: "888-888-8888")
+        let mindy = Contact(name: "Mindy")
+        
+        // add to contacts array
+        contacts.append(jenny)
+        contacts.append(rich)
+        contacts.append(mindy)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,26 +45,24 @@ class ContactsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    // get contact information
-    func contact() -> (name: [String], phoneNumber: [String]) { //[String: String] {
+    // func to edit order of the rows
+    func toggleEdit() {
+        tableView.setEditing(!tableView.editing, animated: true)
         
-        var contactInfo: [String: String] = [:]
-        contactInfo["Jordan Morgan"] = "313-588-7811"
-        contactInfo["Fran Morgan"] = "313-585-1203"
-        
-        let names = [String](contactInfo.keys)
-        let phone = [String](contactInfo.values)
-        
-        return (names, phone)
-        
+        if tableView.editing == true {
+            navigationItem.rightBarButtonItem?.title = "Done"
+            /*let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: nil)
+            navigationItem.rightBarButtonItem = doneButton */
+        }
     }
+    
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return contacts.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> (UITableViewCell) {
@@ -63,37 +70,67 @@ class ContactsTableViewController: UITableViewController {
 
         // Configure the cell...
         
-        //cell.textLabel?.text = "test"
+        // get info for specific row
+        let contact = contacts[indexPath.row]
         
-        // get contacts
-        let contactInfo = contact()
-        
-        // get names of contacts
-        for name in contactInfo.name {
+        // get information for the cell
+        if let name = contact.name {
             cell.textLabel?.text = name
+        } else {
+            cell.textLabel?.text = "No Name"
         }
 
         return cell
     }
     
+    // can edit cells, for swipe to delete a row
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    // what kind of edits a user can make
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // delete a cell
+        if editingStyle == .Delete {
+            // delete contact information from array
+            contacts.removeAtIndex(indexPath.row)
+            // delete cell holding contact information
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    // move contact info in array to new position when moving rows around
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        let contactMoving = contacts.removeAtIndex(fromIndexPath.row)
+        contacts.insert(contactMoving, atIndex: toIndexPath.row)
+    }
+    
+    
     // whenever a contact is tapped, segue to detail view
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "openDetailView" {
-            // variable for detailView
-            let detailViewController = segue.destinationViewController as! ViewController
+        if segue.identifier == "contactsDetailSegue" {
+            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+            let contact = contacts[indexPath.row]
             
-            let info = contact()
-            for nameInfo in info.name {
-                detailViewController.detailViewName = nameInfo
-            }
+            let destination = segue.destinationViewController as! DetailViewController
+            destination.contact = contact
             
-            for phoneInfo in info.phoneNumber {
-                detailViewController.detailViewPhone = phoneInfo
-            }
 
         }
     }
  
+    // get rid of delete button when editing
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if tableView.editing {
+            return .None
+        } else {
+            return .Delete
+        }
+    }
+    
+    override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
 
     /*
     // Override to support conditional editing of the table view.
