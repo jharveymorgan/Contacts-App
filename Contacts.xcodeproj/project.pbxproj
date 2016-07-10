@@ -12,6 +12,7 @@
 		BABC02081D31EF9B009865C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BABC02061D31EF9B009865C0 /* Main.storyboard */; };
 		BABC020A1D31EF9B009865C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BABC02091D31EF9B009865C0 /* Assets.xcassets */; };
 		BABC020D1D31EF9B009865C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BABC020B1D31EF9B009865C0 /* LaunchScreen.storyboard */; };
+		BABC02151D31F005009865C0 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABC02141D31F005009865C0 /* ContactsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		BABC02091D31EF9B009865C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BABC020C1D31EF9B009865C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BABC020E1D31EF9B009865C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BABC02141D31F005009865C0 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				BABC02021D31EF9B009865C0 /* AppDelegate.swift */,
 				BABC02041D31EF9B009865C0 /* ViewController.swift */,
+				BABC02141D31F005009865C0 /* ContactsTableViewController.swift */,
 				BABC02061D31EF9B009865C0 /* Main.storyboard */,
 				BABC02091D31EF9B009865C0 /* Assets.xcassets */,
 				BABC020B1D31EF9B009865C0 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			files = (
 				BABC02051D31EF9B009865C0 /* ViewController.swift in Sources */,
 				BABC02031D31EF9B009865C0 /* AppDelegate.swift in Sources */,
+				BABC02151D31F005009865C0 /* ContactsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
