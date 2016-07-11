@@ -8,23 +8,27 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
     
     // name and phone number
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var phoneNumberField: UITextField!
     var contact: Contact?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // assign delegate proberties of both text fields to self (DetailViewController), which is also a TextFieldDelegate
+        self.nameField.delegate = self
+        self.phoneNumberField.delegate = self
 
         // add contact information to labels
         if let contact = self.contact {
             if let name = contact.name {
-                nameLabel.text = name
+                nameField.text = name
             }
             if let phoneNumber = contact.phoneNumber {
-                phoneNumberLabel.text = phoneNumber
+                phoneNumberField.text = phoneNumber
             }
         }
     }
@@ -32,6 +36,16 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // when user is done typing, get input
+    // optionals in case only one of them is entered
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField == self.nameField {
+            self.contact?.name = textField.text
+        } else if textField == self.phoneNumberField {
+            self.contact?.phoneNumber = textField.text
+        }
     }
     
 

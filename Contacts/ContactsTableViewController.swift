@@ -25,7 +25,11 @@ class ContactsTableViewController: UITableViewController {
         
         // edit button in nav bar
         let moveButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("toggleEdit"))
-        navigationItem.rightBarButtonItem = moveButton
+        navigationItem.leftBarButtonItem = moveButton
+        
+        // add button in nav bar
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ContactsTableViewController.addContact))
+        navigationItem.rightBarButtonItem = addButton
         
         // tester contact information
         let jenny = Contact(phoneNumber: "867-5309")
@@ -54,6 +58,14 @@ class ContactsTableViewController: UITableViewController {
             /*let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: nil)
             navigationItem.rightBarButtonItem = doneButton */
         }
+    }
+    
+    // add a new contact
+    func  addContact() {
+        let newContact = Contact(name: "New Contact")
+        contacts.append(newContact)
+        let newIndexPath = NSIndexPath(forRow: contacts.count - 1, inSection: 0)
+        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
     }
     
 
@@ -130,6 +142,12 @@ class ContactsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
+    }
+    
+    // reload information after edits in DetailView
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 
     /*
